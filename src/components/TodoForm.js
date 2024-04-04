@@ -27,22 +27,20 @@ let tweakedArr = todos;
       return Math.floor(Math.random() * (max - min)) + min;
    }
 
-   const userId = getUserId(1, 31);
+   const genUserId = getUserId(1, 31);
 
   //  ADD TASK
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        dispatch(addTask(userId))
-        console.log(userId)
+        dispatch(addTask(genUserId))
+        console.log(genUserId)
         if (value) {
           // add todo
           addTodo(value);
           // clear form after submission
           setValue('');
         }
-
-        
       };
 
 // GET ALL
