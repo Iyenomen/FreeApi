@@ -12,11 +12,6 @@ const { loading, body, success, data } = allTasks
  const{ todos } = body
 
  let singleArr; 
- 
- const bodyUser ={
-      // id, 
-      // val:'' 
-    };
 
 let tweakedArr = todos;
 
@@ -32,13 +27,14 @@ let tweakedArr = todos;
       return Math.floor(Math.random() * (max - min)) + min;
    }
 
-   const userId = getUserId(1, 101);
+   const userId = getUserId(1, 31);
 
   //  ADD TASK
     const handleSubmit = (e) => {
         e.preventDefault();
-        bodyUser.id = userId
-        dispatch(addTask(bodyUser.userId))
+        
+        dispatch(addTask(userId))
+        console.log(userId)
         if (value) {
           // add todo
           addTodo(value);
@@ -54,19 +50,13 @@ let tweakedArr = todos;
       
         dispatch(getAllTasks(body))
         console.log('lists')   
-        
-        // console.log(tweakedArr)
-        // const [x] = tweakedArr;
-        // singleArr = x
-
-        // console.log(x)
 
     }
     
 
     // DELETE
     const deletingHandler = () =>{   
-      dispatch(deleteTask())
+      dispatch(deleteTask(tweakedArr))
       
       const [x] = tweakedArr;
 
