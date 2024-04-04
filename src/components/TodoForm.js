@@ -10,27 +10,31 @@ const allTasks = useSelector(state => state.allTasks)
 const { loading, body, success, data } = allTasks
 
  const{ todos } = body
+
+ let singleArr; 
+ 
  const bodyUser ={
       // id, 
       // val:'' 
     };
 
+let tweakedArr = todos;
 
 // useStates
   const [value, setValue] = useState('');
   const [itemIds, setItemIds] = useState(todos)
 
-    // const hideAll = true;
-
     // use state add task
   const dispatch = useDispatch()
 
+  //id creation and generation
    const getUserId = (min, max) => {
       return Math.floor(Math.random() * (max - min)) + min;
    }
 
    const userId = getUserId(1, 101);
 
+  //  ADD TASK
     const handleSubmit = (e) => {
         e.preventDefault();
         bodyUser.id = userId
@@ -42,35 +46,47 @@ const { loading, body, success, data } = allTasks
           setValue('');
         }
 
-        // setTask(task.map() => {
-        //    if(body) {}
-        // })
+        
       };
 
+// GET ALL
     const handleClick = () => {
       
         dispatch(getAllTasks(body))
-        console.log('lists')    
+        console.log('lists')   
+        
+        // console.log(tweakedArr)
+        // const [x] = tweakedArr;
+        // singleArr = x
+
+        // console.log(x)
 
     }
+    
 
-    const deleteHandler = (e, todosId) => {
-       e.preventDefault();
-      //  setItems(items.filter(item => item.id !== itemId));
-        setItemIds(itemIds.filter(task => task.userId !==todosId ))
-       dispatch(deleteTask(itemIds.userId));
-       console.log('items cleared')
+    // DELETE
+    const deletingHandler = () =>{   
+      dispatch(deleteTask())
       
+      const [x] = tweakedArr;
 
-      //  if(hideAll) {
-      //      const displayNone = document.querySelector('.todoDatas')
-      //      displayNone.style.display = 'none';
-      //  } 
+      tweakedArr = todos.map((el,i) => {
+          return todos.filter((element,i) => el.id !== element.id)
+      })
+       
+      // console.log(tweakedArr)
+        singleArr = x
+
+        console.log('deleted')
+        console.log(x)
+ 
     }
 
+   
       
   return (
      <div>
+      {}
           <form onSubmit={handleSubmit} className="TodoForm">
             <input type="text" value={value} 
             onChange={(e) => {
@@ -88,13 +104,17 @@ const { loading, body, success, data } = allTasks
           {
             (success) && (
               (<div className='todoDatas'>
-                    {todos.map((todo, index) => (
+                
+                    {
+                    tweakedArr.map((todo, index) => (
+                      
                       <div>
                         <p key={index}>{`${todo.todo}`}</p> 
+                        {/* {console.log(todo.id)} */}
                         
                         <FontAwesomeIcon  
-                          // onClick={() => dispatch(deleteTask(todo.userId))} 
-                          onClick={deleteHandler}
+                          // onClick={(todo) =>{deleteTask(todo.id)}}
+                          onClick={deletingHandler}
                           className="delete-icon" 
                           icon={faTrash} 
                         />

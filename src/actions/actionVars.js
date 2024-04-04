@@ -127,7 +127,7 @@ export const deleteTask = (todosId) => async (dispatch, getState) => {
 
     })
 
-    await axios.delete(`https://dummyjson.com/todos/${todosId}`)
+    const {data} = await axios.delete(`https://dummyjson.com/todos/${todosId}`)
     
   dispatch({
      type: DELETE_A_TASK_SUCCESS,
