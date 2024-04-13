@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTask, deleteTask, getAllTasks } from '../actions/actionVars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import Spin from '../image/Spin.gif'
 
 
 export const TodoForm = ({addTodo}) => {
@@ -87,7 +88,10 @@ let tweakedArr = todos;
             <button type="submit" className='todo-btn'>Add Task</button><br></br>
           </form>
          
-          <p  onClick={handleClick} className='todo-btn1'> Show All Tasks</p>
+          {(loading)? <div>
+              <img  className='spinIcon' src={Spin}/>
+          </div>:
+          <p  onClick={handleClick} className='todo-btn1'> Show All Tasks</p>}
           
           {
             (success) && (
